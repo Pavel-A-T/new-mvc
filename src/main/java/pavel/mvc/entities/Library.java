@@ -1,11 +1,12 @@
-package pavel.mvc;
+package pavel.mvc.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Library {
-    private static List<Genre> genres = new ArrayList<>();
-    private static List<Book> books = new ArrayList<>();
+    private static final List<Genre> genres = new ArrayList<>();
+    private static final List<Book> books = new ArrayList<>();
 
     static {
         genres.add(new Genre("Detective"));
@@ -19,11 +20,12 @@ public class Library {
     }
 
     public static Genre getGenre(String genre) {
-        Genre g = genres.stream().filter(e -> e.getGenre().equals(genre)).findFirst().orElse(new Genre("other"));
-        if (g.getGenre().equals("other")) {
-            return null;
+        if (genres.stream().noneMatch(e -> e.getGenre().equals(genre))) {
+            return new Genre(genre);
         }
-        return g;
+        else {
+            return genres.stream().filter(e -> e.getGenre().equals(genre)).findFirst().get();
+        }
     }
 
     public static List<Book> getBooks() {
@@ -37,16 +39,17 @@ public class Library {
         return false;
     }
 
-    public static boolean addBook(Book book) {
-        if (books.stream().noneMatch(item -> item.getName().equals(book.getName()))) {
-            return books.add(book);
-        }
-        else {
-            Book b = books.stream().filter(e -> e.getName().equals(book.getName())).findFirst().get();
-            b.setAuthor(book.getAuthor());
-            b.setGenre(book.getGenre());
-            b.setComment(book.getComment());
-            return true;
-        }
+    public static Book addBook(Book book) {
+        if (book.getId() == 0) {
+            book.setId();
+       }
+        books.add(book);
+        return book;
     }
+
+    public static Optional<Book> getBookById(int id) {
+        return books.stream().filter(e -> e.getId() == id).findFirst();
+    }
+
+
 }

@@ -1,6 +1,8 @@
-package pavel.mvc;
+package pavel.mvc.entities;
+
 
 public class Book {
+    private int id;
     private String name;
     private Author author;
     private Genre genre;
@@ -10,6 +12,7 @@ public class Book {
     }
 
     public Book(String name, Author author, Genre genre, Comment comment) {
+        this.id = Id.getId();
         this.name = name;
         this.author = author;
         this.genre = genre;
@@ -47,4 +50,13 @@ public class Book {
     public Comment getComment() {
         return comment;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId() {
+        this.id = Id.getId();
+    }
+
 }

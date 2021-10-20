@@ -1,21 +1,20 @@
 package pavel.mvc.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pavel.mvc.Author;
-import pavel.mvc.Book;
-import pavel.mvc.Comment;
-import pavel.mvc.EntityBook;
-import pavel.mvc.Genre;
+import org.springframework.web.bind.annotation.RestController;
+import pavel.mvc.entities.Book;
 import pavel.mvc.service.MyService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/")
 public class MyController {
    private final MyService service;
 
@@ -23,51 +22,30 @@ public class MyController {
         this.service = service;
     }
 
-    @RequestMapping("/")
-    public String ShowAllBooks(Model model) {
+    @GetMapping("/books")
+    public List<Book> ShowAllBooks() {
         List<Book> books = service.getAllBooks();
-        model.addAttribute("allBooks", books);
-        return "all-books";
+        return books;
     }
 
-    @RequestMapping("/addNewBook")
-    public String addNewBook(Model model) {
-        EntityBook book = new EntityBook();
-        model.addAttribute("book", book);
-        return "book";
+    @PostMapping("/addBook")
+    public Book addBook(@RequestBody Book book) {
+        return service.addBook(book);
     }
 
-    @RequestMapping("/addBook")
-    public String addBook(@ModelAttribute("book") EntityBook entityBook) {
-        service.addBook(new Book(entityBook.getName(), new Author(entityBook.getAuthor()),
-                new Genre(entityBook.getGenre()), new Comment(entityBook.getComment())));
-        return "redirect:/";
+    @GetMapping("/book/{id}")
+    public Book addBook(@PathVariable int id) {
+        Book book = service.getBook(id).orElse(null);
+        return book;
     }
 
-    @RequestMapping("/update")
-    public String updateBook(@RequestParam("id") String name, Model model) {
-        Book book = service.getBook(name);
-        EntityBook entityBook = new EntityBook();
-        entityBook.setName(book.getName());
-        entityBook.setGenre(book.getGenre().getGenre());
-        entityBook.setAuthor(book.getAuthor().getAuthor());
-        entityBook.setComment(book.getComment().getDescription());
-        if (book.getName() != null) {
-            model.addAttribute("book", entityBook);
-        }
-           return "book";
+    @PutMapping("/books")
+    public Book updateBook(@RequestBody Book book) {
+        return service.updateBook(book);
     }
 
-    @RequestMapping("/askDetails")
-    public String askBook() {
-        return "details-book";
-    }
-
-    @RequestMapping("/showDetails")
-    public String showBookDetails(HttpServletRequest request, Model model) {
-        String bookName = request.getParameter("bookName");
-        model.addAttribute("nameAttribute", bookName);
-
-        return "show-book-view";
+    @DeleteMapping("/delete/{id}")
+    public Book deleteBook(@PathVariable(value = "id") int id) {
+        return service.delete(id);
     }
 }

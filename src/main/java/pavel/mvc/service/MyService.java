@@ -1,23 +1,15 @@
 package pavel.mvc.service;
 
-import org.springframework.stereotype.Service;
-import pavel.mvc.Book;
-import pavel.mvc.Library;
+import pavel.mvc.entities.Book;
+import pavel.mvc.entities.Library;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class MyService {
-
-    public List<Book> getAllBooks() {
-        return Library.getBooks();
-    }
-
-    public boolean addBook(Book book) {
-        return Library.addBook(book);
-    }
-
-    public Book getBook(String name) {
-        return Library.getBooks().stream().filter(e -> e.getName().equals(name)).findFirst().orElse(new Book());
-    }
+public interface MyService {
+    List<Book> getAllBooks();
+    Book addBook(Book book);
+    Optional<Book> getBook(int id);
+    Book updateBook(Book updateBook);
+    Book delete(int id);
 }
