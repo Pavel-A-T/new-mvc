@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pavel.mvc.entities.Book;
-import pavel.mvc.service.MyService;
+import pavel.mvc.service.BookService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/")
 public class MyController {
-   private final MyService service;
+   private final BookService service;
 
-    public MyController(MyService service) {
+    public MyController(BookService service) {
         this.service = service;
     }
 
@@ -30,7 +30,7 @@ public class MyController {
 
     @PostMapping("/addBook")
     public Book addBook(@RequestBody Book book) {
-        return service.addBook(book);
+        return service.saveBook(book);
     }
 
     @GetMapping("/book/{id}")
@@ -41,11 +41,11 @@ public class MyController {
 
     @PutMapping("/books")
     public Book updateBook(@RequestBody Book book) {
-        return service.updateBook(book);
+        return service.saveBook(book);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Book deleteBook(@PathVariable(value = "id") int id) {
-        return service.delete(id);
+    public void deleteBook(@PathVariable(value = "id") int id) {
+        service.delete(id);
     }
 }
