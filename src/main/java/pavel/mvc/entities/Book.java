@@ -6,40 +6,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column
     private int id;
 
     @Column
     private String name;
 
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name="author_id")
     private Author author;
 
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name="genre_id")
     private Genre genre;
 
-    @OneToOne
-    @JoinColumn
-    private Comment comment;
+    @ManyToMany
+    @JoinTable(
+            name="book_comments",
+            joinColumns=@JoinColumn(name="book_id"),
+            inverseJoinColumns = @JoinColumn(name="comment_id")
+    )
+    private List<Comment> comments;
 
     public Book() {}
 
-    public Book(String name, Author author, Genre genre, Comment comment) {
+    public Book(String name, Author author, Genre genre) {
         this.name = name;
         this.author = author;
         this.genre = genre;
-        this.comment = comment;
     }
 
     public int getId() {
@@ -74,12 +80,12 @@ public class Book {
         this.genre = genre;
     }
 
-    public Comment getComment() {
-        return comment;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setComment(Comment comment) {
-        this.comment = comment;
+    public void setComment(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -89,7 +95,7 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", author=" + author +
                 ", genre=" + genre +
-                ", comment=" + comment +
+                ", comments=" + comments +
                 '}';
     }
 }

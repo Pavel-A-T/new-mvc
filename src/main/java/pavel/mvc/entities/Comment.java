@@ -5,17 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @JoinColumn
     private int id;
-    @Column
+    @Column(name="description")
     private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name="book_comments",
+            joinColumns=@JoinColumn(name="comment_id"),
+            inverseJoinColumns = @JoinColumn(name="book_id")
+    )
+    private List<Comment> comments;
 
     public Comment() {}
 

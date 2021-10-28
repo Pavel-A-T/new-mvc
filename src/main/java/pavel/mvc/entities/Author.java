@@ -1,11 +1,16 @@
 package pavel.mvc.entities;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,6 +21,10 @@ public class Author {
     private int id;
     @Column
     private String author;
+
+//    @OneToMany(mappedBy = "author")
+//    @Cascade(CascadeType.DELETE)
+//    private List<Book> books;
 
     public Author() {}
 
@@ -38,6 +47,14 @@ public class Author {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+//    public List<Book> getBooks() {
+//        return books;
+//    }
+//
+//    public void setBooks(List<Book> books) {
+//        this.books = books;
+//    }
 
     @Override
     public String toString() {
