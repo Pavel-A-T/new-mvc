@@ -1,12 +1,15 @@
 package pavel.mvc.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pavel.mvc.dao.BookRepository;
 import pavel.mvc.dao.CommentRepository;
+import pavel.mvc.dto.BookDto;
+import pavel.mvc.dto.CommentDto;
 import pavel.mvc.entities.Book;
 import pavel.mvc.entities.Comment;
+import pavel.mvc.mappers.BookMapper;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,17 +24,22 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
     }
 
     @Override
-    @Transactional
-    public List<Comment> getCommentsByBookId(int id) {
-        Optional<Book> book = repository.findById(id);
-        List<Comment> comments = book.get().getComments();
-        return comments;
+    @Transactional(readOnly = true)
+    public List<CommentDto> getCommentsByBookId(int id) {
+        Optional<Book> optional = repository.findById(id);
+        Book book = optional.get();
+        if (book != null) {
+            book.getComments();
+            BookDto bookDto = BookMapper.INSTANCE.bookToBookDto(book);
+            List<CommentDto> comments = bookDto.getComments();
+            return comments;
+        }
+        return null;
     }
 
 }

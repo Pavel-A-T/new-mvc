@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pavel.mvc.dto.BookDto;
 import pavel.mvc.entities.Book;
 import pavel.mvc.service.BookService;
 
@@ -23,8 +24,8 @@ public class MyController {
     }
 
     @GetMapping("/books")
-    public List<Book> ShowAllBooks() {
-        List<Book> books = service.getAllBooks();
+    public List<BookDto> showAllBooks() {
+        List<BookDto> books = service.getAllBooks();
         return books;
     }
 

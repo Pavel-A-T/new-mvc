@@ -4,12 +4,6 @@ CREATE TABLE author
     author VARCHAR(255),
     CONSTRAINT pk_author PRIMARY KEY (id)
 );
-CREATE TABLE comment
-(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    description VARCHAR(255),
-    CONSTRAINT pk_comment PRIMARY KEY (id)
-);
 CREATE TABLE genre
 (
     id INTEGER NOT NULL AUTO_INCREMENT,
@@ -26,11 +20,11 @@ CREATE TABLE book
     CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES author (id),
     CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES genre (id)
 );
-CREATE TABLE book_comments
+CREATE TABLE comment
 (
-    comment_id INTEGER NOT NULL,
-    book_id  INTEGER NOT NULL,
-    CONSTRAINT fk_comment FOREIGN KEY (comment_id) REFERENCES comment (id),
-    CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES book (id)
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255),
+    book_id INTEGER NOT NULL,
+    CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES book (id),
+    CONSTRAINT pk_comment PRIMARY KEY (id)
 );
-

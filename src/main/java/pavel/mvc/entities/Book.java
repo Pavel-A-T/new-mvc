@@ -32,12 +32,7 @@ public class Book {
     @JoinColumn(name="genre_id")
     private Genre genre;
 
-    @ManyToMany
-    @JoinTable(
-            name="book_comments",
-            joinColumns=@JoinColumn(name="book_id"),
-            inverseJoinColumns = @JoinColumn(name="comment_id")
-    )
+    @OneToMany(mappedBy = "book")
     private List<Comment> comments;
 
     public Book() {}
