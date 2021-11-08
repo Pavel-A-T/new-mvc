@@ -17,3 +17,5 @@ INSERT INTO comment (description, book_id) VALUES ('not interesting', 1);
 INSERT INTO comment (description, book_id) VALUES ('interesting', 2);
 INSERT INTO comment (description, book_id) VALUES ('super book!!!', 1);
 
+INSERT INTO usr (username, password) VALUES ('Us', 1);
+
