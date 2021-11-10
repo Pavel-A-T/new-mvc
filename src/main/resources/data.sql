@@ -17,5 +17,9 @@ INSERT INTO comment (description, book_id) VALUES ('not interesting', 1);
 INSERT INTO comment (description, book_id) VALUES ('interesting', 2);
 INSERT INTO comment (description, book_id) VALUES ('super book!!!', 1);
 
-INSERT INTO usr (username, password) VALUES ('Us', 1);
+INSERT INTO users (username, password, enabled) VALUES ('admin', '{noop}123', 1);
+INSERT INTO users (username, password, enabled) VALUES ('user', '{noop}321', 1);
+
+INSERT INTO authorities(username, authority) VALUES ('admin', 'ROLE_ADMIN');
+INSERT INTO authorities(username, authority) VALUES ('user', 'ROLE_USER');
 

@@ -28,17 +28,18 @@ CREATE TABLE comment
     CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES book (id),
     CONSTRAINT pk_comment PRIMARY KEY (id)
 );
-CREATE TABLE usr
+CREATE TABLE users
 (
-    id INTEGER NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    CONSTRAINT pk_usr PRIMARY KEY (id)
+    enabled TINYINT(1),
+    CONSTRAINT pk_usr PRIMARY KEY (username)
 );
-CREATE TABLE user_role
+CREATE TABLE authorities
 (
-    user_id INTEGER NOT NULL,
-    roles VARCHAR(255)
+    username VARCHAR(255),
+    authority VARCHAR(255),
+    CONSTRAINT fk_role FOREIGN KEY (username) REFERENCES users (username)
 );
 
 

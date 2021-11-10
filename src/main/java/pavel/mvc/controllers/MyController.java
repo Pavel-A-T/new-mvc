@@ -40,7 +40,7 @@ public class MyController {
         return book;
     }
 
-    @PutMapping("/books")
+    @PutMapping("/book")
     public Book updateBook(@RequestBody Book book) {
         return service.saveBook(book);
     }
