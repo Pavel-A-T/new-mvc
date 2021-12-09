@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pavel.mvc.config.TestConfig;
+import pavel.mvc.config.TestConfigController;
 import pavel.mvc.dto.AuthorDto;
 import pavel.mvc.dto.BookDto;
 import pavel.mvc.dto.GenreDto;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestConfig.class,
+@ContextConfiguration(classes = TestConfigController.class,
        loader = AnnotationConfigContextLoader.class)
 public class MyControllerTest {
 

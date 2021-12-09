@@ -1,7 +1,5 @@
 package pavel.mvc.config;
 
-import static org.mockito.Mockito.mock;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pavel.mvc.controllers.CommentController;
@@ -9,8 +7,10 @@ import pavel.mvc.controllers.MyController;
 import pavel.mvc.service.BookService;
 import pavel.mvc.service.CommentService;
 
+import static org.mockito.Mockito.mock;
+
 @Configuration
-public class TestConfig {
+public class TestConfigController {
 
     @Bean
     BookService bookService() {

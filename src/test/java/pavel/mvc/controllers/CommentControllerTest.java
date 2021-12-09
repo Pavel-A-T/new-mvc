@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pavel.mvc.config.TestConfig;
+import pavel.mvc.config.TestConfigController;
 import pavel.mvc.dto.CommentDto;
 import pavel.mvc.service.CommentService;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestConfig.class,
+@ContextConfiguration(classes = TestConfigController.class,
         loader = AnnotationConfigContextLoader.class)
 class CommentControllerTest {
 
