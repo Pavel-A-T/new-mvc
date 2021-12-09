@@ -22,7 +22,6 @@ public class MyController {
     public MyController(BookService service) {
         this.service = service;
     }
-
     @GetMapping("/books")
     public List<BookDto> showAllBooks() {
         List<BookDto> books = service.getAllBooks();
