@@ -1,12 +1,6 @@
 package pavel.mvc.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pavel.mvc.config.TestConfigService;
 import pavel.mvc.dao.BookRepository;
 import pavel.mvc.entities.Author;
 import pavel.mvc.entities.Book;
@@ -19,15 +13,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestConfigService.class,
-        loader = AnnotationConfigContextLoader.class)
 class BookServiceImplTest {
 
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private BookRepository repository;
+    private BookRepository repository = mock(BookRepository.class);
+    private BookService bookService = new BookServiceImpl(repository);
 
     @Test
     void getAllBooks() {

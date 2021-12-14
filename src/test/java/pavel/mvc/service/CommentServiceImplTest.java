@@ -1,12 +1,6 @@
 package pavel.mvc.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pavel.mvc.config.TestConfigService;
 import pavel.mvc.dao.BookRepository;
 import pavel.mvc.dao.CommentRepository;
 import pavel.mvc.entities.Author;
@@ -21,19 +15,14 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestConfigService.class,
-        loader = AnnotationConfigContextLoader.class)
 class CommentServiceImplTest {
 
-    @Autowired
-    private CommentService service;
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private BookRepository bookRepository;
+    private CommentRepository commentRepository = mock(CommentRepository.class);
+    private BookRepository bookRepository = mock(BookRepository.class);
+    private CommentService service = new CommentServiceImpl(bookRepository, commentRepository);
 
     @Test
     void getAllComments() {

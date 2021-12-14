@@ -1,12 +1,6 @@
 package pavel.mvc.controllers;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pavel.mvc.config.TestConfigController;
 import pavel.mvc.dto.CommentDto;
 import pavel.mvc.service.CommentService;
 
@@ -14,17 +8,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestConfigController.class,
-        loader = AnnotationConfigContextLoader.class)
+
 class CommentControllerTest {
 
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private CommentController commentController;
+
+    private CommentService commentService = mock(CommentService.class);
+    private CommentController commentController = new CommentController(commentService);
 
 
     @Test

@@ -1,6 +1,5 @@
 package pavel.mvc.service;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pavel.mvc.dao.BookRepository;
 import pavel.mvc.dto.BookDto;
@@ -12,7 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Primary
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
